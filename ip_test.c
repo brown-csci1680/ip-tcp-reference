@@ -37,6 +37,11 @@ void iptest_init(void)
     register_packet_handler(0, &test_handler);
 }
 
+void iptest_destroy(void)
+{
+    unregister_packet_handler(0);
+}
+
 
 // CLI command for sending test IP packets
 void send_cmd(const char *line)

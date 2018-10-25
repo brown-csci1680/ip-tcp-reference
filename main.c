@@ -18,12 +18,14 @@ int main(int argc, char **argv)
     }
     char *lnx_filename = argv[1];
 
+    // Initialize resources for the reference node
     node_init(lnx_filename);
 
     // Any setup you need to do before the node starts happens here
     iptest_init();
 
     while(1) {
+	// Read a line of input and process it using the registered CLI commands
 	ret = node_read_cli();
 
 	if (ret == NODE_CLI_EXIT) {
@@ -32,7 +34,7 @@ int main(int argc, char **argv)
     }
 
     // Any cleanup you need to do before the node shuts down happens here
-    unregister_packet_handler(0);
+    iptest_destroy();
 
     // Cleanup all resources before exiting
     node_destroy();

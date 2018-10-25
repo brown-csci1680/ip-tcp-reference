@@ -13,7 +13,7 @@
 
 
 void iptest_init(void);
-void test_handler(int id, struct in_addr src, struct in_addr dst, void * buf, size_t len);
+void iptest_destroy(void);
 
 
 #endif /* IP_TEST_H */
