@@ -4,12 +4,22 @@
 #ifndef NODE_H
 #define NODE_H
 
-#include <netinet/ip.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <netinet/in.h>
+
+#include "list.h"
 
 #define NODE_CLI_INVALID -1 // An invalid command was specified
 #define NODE_CLI_EXIT -2    // User entered exit command
 
 typedef void (*command_handler_t)(const char *);
+
+struct link_interface {
+    uint32_t id;        // ID of this interface
+    uint32_t ip_addr;   // IP address (in network byte order)
+    list_link_t link;   // List node metadata
+};
 
 /*
  * Initialize an IP node, based on a lnx file
@@ -28,6 +38,22 @@ void node_destroy(void);
  * command and the program should cleanup and quit accordingly.
  */
 int node_read_cli(void);
+
+/*
+ * Populate a list of interfaces and their IP addresses, given a
+ * pointer to an empty list head.  Entries of this list are type
+ * struct link_interface (defined above).  Returns number of
+ * interfaces available.
+ *
+ * NOTE:  Once created, the interface list must be destroyed with
+ * free_interface_list().
+ */
+size_t build_interface_list(list_t *list);
+
+/*
+ * Free an interface list populated by build_interface_list
+ */
+void free_interface_list(list_t *list);
 
 /*
  * Register a CLI command, given a commmand string, a description for the
