@@ -3,7 +3,7 @@ CFLAGS = -g -Wall -Wextra -Werror -D_REENTRANT -DCOLOR \
 	-D__BSD_VISIBLE -DREADLINE
 
 INCLUDES=-Isupport -I.
-LDFLAGS = -Llib -lpthread -lreadline -lipref
+LDFLAGS = -Llib -lpthread -lipref -lreadline
 
 HEADERS=$(wildcard *.h)
 SRCS=$(wildcard *.c)
