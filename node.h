@@ -97,7 +97,11 @@ void unregister_packet_handler(uint8_t prot);
  */
 int ip_send(struct in_addr dst, uint8_t prot, const void *buf, size_t len);
 
-
+/*
+ * Get given a IP destination, return the IP source address (src)
+ * and interface id (id) that will be used to send the packet.
+ */
+int ip_get_dst_info(struct in_addr dst, struct in_addr *src, int *id);
 
 
 #endif /* NODE_H */
